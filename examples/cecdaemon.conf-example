@@ -1,0 +1,106 @@
+# /etc/cecdaemon.conf
+# 
+# To use this example configuration with cecdaemon place it in the /etc
+# directory or tell cecdaemon where to find it using --config=file
+
+# Use the [triggers] section to run commands when a specific CEC event is 
+# received. 
+# 
+# Uncomment this section and customize the commands to enable
+# 
+#[triggers]
+#standby = /usr/bin/echo standby action
+#wake = /usr/bin/echo wake action
+
+# Use [cmd_name] sections to run a command when a button is pressed or held.
+# Use the /usr/bin/cecusercodes command to find key codes. The holdtime is 
+# how long the button must be held down for the command to activate. 
+#
+# Uncomment this section and customize the commands to enable
+#
+#[cmd_restart]
+# Green button hold for 3000ms
+#key = 115
+#holdtime = 1
+#command = /usr/bin/echo green held
+#
+#[cmd_reboot]
+# Red button hold for 4000ms
+#key = 114
+#holdtime = 4000
+#command = /usr/bin/sudo systemctl reboot
+
+# Use the [tv] section to configure the device name presented to the tv. The
+# default is CECDAEMON. The name cannot be more than 14 characters and should
+# be comprised of only alphanumeric ASCII characters
+# 
+# Uncomment this section and customize the name to enable
+#
+#[tv]
+# Truncated to 14 character max
+#name = HTPC
+
+# Use the [keymap] section to map CEC User Commands (remote presses) to 
+# uinput codes (like keyboard keys). A list of all of the python-uinput
+# codes can be found at:
+# https://github.com/tuomasjjrasanen/python-uinput/blob/master/src/ev.py
+#
+# Remote codes can be determined using the /usr/bin/cecusercodes command as
+# remote labels vary between vendors
+#
+# You can use the number pad to type in Kodi using SMS style bindings. For
+# more information check the wiki:
+# https://kodi.wiki/view/HOW-TO:Use_SMS-style_text_entry_for_remotes
+#
+
+[keymap]
+# Select
+0 = KEY_ENTER      	
+# Up
+1 = KEY_UP         	
+# Down
+2 = KEY_DOWN       	
+# Left
+3 = KEY_LEFT       	
+# Right
+4 = KEY_RIGHT      	
+# Home
+9 = KEY_ESC        	
+# Options
+10 = KEY_C          	
+# Return
+13 = KEY_BACKSPACE  	
+# Keys 0-9: 
+32 = KEY_0		
+33 = KEY_1
+34 = KEY_2
+35 = KEY_3
+36 = KEY_4
+37 = KEY_5
+38 = KEY_6
+39 = KEY_7
+40 = KEY_8
+41 = KEY_9
+# Period
+42 = KEY_DOT		
+# Enter
+43 = KEY_ENTER		
+# Jump
+50 = KEY_CYCLEWINDOWS	
+# Play
+68 = KEY_PLAY		
+# Stop
+69 = KEY_X
+# Pause
+70 = KEY_PAUSE		
+# Fast Forward
+75 = KEY_FASTFORWARD	
+# Rewind
+76 = KEY_REWIND		
+# Subtitles
+81 = KEY_T          	
+# Function buttons
+113 = KEY_BLUE
+114 = KEY_RED		
+115 = KEY_GREEN
+116 = KEY_YELLOW

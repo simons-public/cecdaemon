@@ -1,0 +1,11 @@
+[Unit]
+Description=Starts the custom CEC daemon
+After=systemd-modules-load.service
+
+[Service]
+Type=simple
+ExecStart=/usr/bin/cecdaemon --config=/etc/cec.conf
+Restart=always
+
+[Install]
+WantedBy=multi-user.target
