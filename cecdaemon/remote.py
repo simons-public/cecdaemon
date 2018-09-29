@@ -32,6 +32,9 @@ class Remote:
         # setup the uinput device
         devicekeys = []
 
+	# let tv know we want remote input 8e:00
+	cec.transmit(cec.CECDEVICE_TV, cec.CEC_OPCODE_MENU_STATUS, bytes.fromhex('00'))
+
         #pylint: disable=W0612
         for key, value in self.keymap.items():
             devicekeys.append(getattr(uinput, value))
