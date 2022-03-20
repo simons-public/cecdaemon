@@ -7,6 +7,7 @@ from time import sleep
 import cec
 from cecdaemon.const import USER_CONTROL_CODES
 
+
 def print_keycode(event, *data):
     """ Takes a python-cec cec.EVENT_COMMAND callback and prints the user control code
 
@@ -22,7 +23,9 @@ def print_keycode(event, *data):
     assert event == 2
     code, milsec = data
     if milsec > 0:
-        print(f'{USER_CONTROL_CODES[code]} pressed (hex: {hex(code)}, dec: {code})')
+        print(
+            f'{USER_CONTROL_CODES[code]} pressed (hex: {hex(code)}, dec: {code})')
+
 
 def main():
     """ Inits cec and listens for remote keystrokes
@@ -38,6 +41,7 @@ def main():
             sleep(1)
     except KeyboardInterrupt:
         exit(0)
+
 
 if __name__ == '__main__':
     main()

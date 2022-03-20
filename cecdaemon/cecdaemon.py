@@ -14,6 +14,7 @@ from .remote import Remote
 from .tv import Tv
 from .trigger import Trigger
 
+
 class CecDaemon():
     """ Creates instances of Tv, Remote, CustomCommand and Trigger
         Manages configuration parsing and command line args
@@ -45,7 +46,8 @@ class CecDaemon():
             triggerconf = conf._sections['triggers']
             trigger = Trigger(cec, triggerconf)
         except AttributeError:
-            logging.warning('No triggers section found in config, triggers disabled')
+            logging.warning(
+                'No triggers section found in config, triggers disabled')
 
         try:
             keymap = conf._sections['keymap']
@@ -66,7 +68,8 @@ class CecDaemon():
                     remote.add_callback(callback.run_command, int(key))
 
                 except AttributeError:
-                    logging.warning('Callback for %s not created, check format', name)
+                    logging.warning(
+                        'Callback for %s not created, check format', name)
 
     def _setup_logging(self):
         """ Configure logging
@@ -87,7 +90,6 @@ class CecDaemon():
 
         self.args = parser.parse_args()
 
-
     def run(self):
         """ Keeps the instance of CecDaemon running while python-cec threads
             do callbacks
@@ -97,11 +99,13 @@ class CecDaemon():
         while True:
             sleep(1)
 
+
 def run():
     """ Run the daemon
     """
     daemon = CecDaemon()
     daemon.run()
+
 
 if __name__ == "__main__":
     run()

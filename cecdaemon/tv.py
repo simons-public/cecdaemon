@@ -6,6 +6,7 @@ from types import ModuleType
 from .const import DEFAULT_TV_CONFIG
 logging.getLogger(__name__)
 
+
 class Tv:
     """ Basic wrapper object for controlling the tv
 
@@ -21,11 +22,11 @@ class Tv:
         self.cec = cec
         self.dev = cec.CECDEVICE_TV
         if tvconf is None:
-            logging.warning('No tv section in config, using default') 
+            logging.warning('No tv section in config, using default')
             self.conf = DEFAULT_TV_CONFIG
         else:
             self.conf = tvconf
-        
+
         self._set_name()
 
     def _set_name(self):
@@ -57,5 +58,6 @@ class Tv:
 
     def wakeup(self):
         """ Wake up tv from standby"""
-        self.cec.transmit(self.dev, self.cec.CEC_OPCODE_USER_CONTROL_PRESSED, bytes.fromhex('6d'))
+        self.cec.transmit(
+            self.dev, self.cec.CEC_OPCODE_USER_CONTROL_PRESSED, bytes.fromhex('6d'))
         logging.debug('Set wake')

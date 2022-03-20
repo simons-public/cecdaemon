@@ -5,6 +5,7 @@ from subprocess import Popen, PIPE, STDOUT
 import logging
 logging.getLogger(__name__)
 
+
 class CustomCommand():
     """Runs a command based on initial configuration
 

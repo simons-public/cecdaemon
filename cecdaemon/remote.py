@@ -6,6 +6,7 @@ import uinput
 from .const import DEFAULT_REMOTE_CONFIG
 logging.getLogger(__name__)
 
+
 class Remote:
     """ Takes a libcec object and a keymap and turns remote presses
         into uinput keypresses.
@@ -16,6 +17,7 @@ class Remote:
     :param keymap: cec to uinput mappings
     :type keymap: dict
     """
+
     def __init__(self, cec=None, keymap=None):
         self.callbacks = {}
         self.keystate = None
@@ -32,8 +34,9 @@ class Remote:
         # setup the uinput device
         devicekeys = []
 
-	# let tv know we want remote input 8e:00
-	cec.transmit(cec.CECDEVICE_TV, cec.CEC_OPCODE_MENU_STATUS, bytes.fromhex('00'))
+        # let tv know we want remote input 8e:00
+        cec.transmit(cec.CECDEVICE_TV, cec.CEC_OPCODE_MENU_STATUS,
+                     bytes.fromhex('00'))
 
         #pylint: disable=W0612
         for key, value in self.keymap.items():

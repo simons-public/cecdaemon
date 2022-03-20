@@ -6,6 +6,7 @@ from subprocess import Popen, PIPE, STDOUT
 from .const import COMMANDS
 logging.getLogger(__name__)
 
+
 class Trigger:
     """ Takes a libcec object and registers its methods as callbacks for
         executing custom commands from a config
