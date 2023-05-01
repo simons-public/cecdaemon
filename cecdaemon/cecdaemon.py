@@ -13,6 +13,7 @@ from .custom_cmd import CustomCommand
 from .remote import Remote
 from .tv import Tv
 from .trigger import Trigger
+from .util import cec_init
 
 
 class CecDaemon():
@@ -25,7 +26,7 @@ class CecDaemon():
         self._parse_args()
         self._setup_logging()
         logging.info('Initializing CEC device, please wait...')
-        cec.init()
+        cec_init()
         logging.info('CEC Initialized')
 
         if os.path.isfile(self.args.conffile):

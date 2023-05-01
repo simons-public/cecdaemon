@@ -5,6 +5,7 @@ import logging
 from time import sleep
 import cec
 from cecdaemon.remote import Remote
+from cecdaemon.util import cec_init
 
 CONF = {
     '0': 'KEY_ENTER',
@@ -16,7 +17,7 @@ CONF = {
 
 logging.basicConfig(stream=sys.stdout, level=logging.DEBUG)
 
-cec.init()
+cec_init()
 
 remote = Remote(cec, CONF)
 
