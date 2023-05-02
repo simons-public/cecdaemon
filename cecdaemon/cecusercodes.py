@@ -6,7 +6,7 @@
 from time import sleep
 import cec
 from cecdaemon.const import USER_CONTROL_CODES
-
+from .util import cec_init
 
 def print_keycode(event, *data):
     """ Takes a python-cec cec.EVENT_COMMAND callback and prints the user control code
@@ -32,7 +32,7 @@ def main():
     """
     print('Initializing CEC, please wait...')
     print('If this takes too long ensure the device is not already in use')
-    cec.init()
+    cec_init()
     cec.add_callback(print_keycode, 2)
     print('CEC device initialized, press remote keys or hit ^C to quit')
 

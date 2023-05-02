@@ -1,2 +1,3 @@
 python-uinput>=0.11.2
 cec>=0.2.6
+pyudev>=0.8
