@@ -20,7 +20,7 @@ class Remote:
 
     def __init__(self, cec=None, keymap=None):
         self.callbacks = {}
-        self.keystate = None
+        self.key_down = None
 
         if keymap is None:
             logging.warning('No keymap found in config, using default')
@@ -73,21 +73,25 @@ class Remote:
         assert event == 2
         keycode = getattr(uinput, self.keymap[str(key)])
 
-        if state == 0 and self.keystate is None:
+        if state == 0:
+            if self.key_down != None:
+                # edge case where we didn't detect a key up before next key down
+                previous_keycode = getattr(uinput, self.keymap[str(self.key_down)])
+                logging.debug('Key %i up', self.key_down)
+                self.device.emit(previous_keycode, 0)
             logging.debug('%i is mapped to %s', key, self.keymap[str(key)])
             logging.debug('Key %i down', key)
-            self.keystate = "down"
+            self.key_down = key
             self.device.emit(keycode, 1)
-
-        if state > 0:
+        elif state > 0:
             # edge case for keys that never emit state 0 (like stop)
-            if self.keystate is None:
+            if self.key_down is None:
                 logging.debug('Key %i down', key)
                 self.device.emit(keycode, 1)
 
             logging.debug('Key %i up after %ims', key, state)
             self.device.emit(keycode, 0)
-            self.keystate = None
+            self.key_down = None
 
     def add_callback(self, function, key):
         """ Takes a function and a key and adds a callback when that
