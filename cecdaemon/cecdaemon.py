@@ -29,48 +29,46 @@ class CecDaemon():
         cec_init()
         logging.info('CEC Initialized')
 
+        conf = ConfigParser()
         if os.path.isfile(self.args.conffile):
-            conf = ConfigParser()
             logging.info('Using config file %s', self.args.conffile)
             conf.read(self.args.conffile)
         else:
-            logging.warning('Config file not found')
-            conf = None
+            logging.warning('Config file not found: %s', self.args.conffile)
 
-        try:
-            tvconf = conf._sections['tv']
-            television = Tv(cec, tvconf)
-        except AttributeError:
-            television = Tv(cec, None)
+        if 'tv' in conf:
+            tvconf = conf['tv']
+            Tv(cec, tvconf)
+        else:
+            Tv(cec, None)
 
-        try:
-            triggerconf = conf._sections['triggers']
-            trigger = Trigger(cec, triggerconf)
-        except AttributeError:
+        if 'triggers' in conf:
+            triggerconf = conf['triggers']
+            Trigger(cec, triggerconf)
+        else:
             logging.warning(
                 'No triggers section found in config, triggers disabled')
 
-        try:
-            keymap = conf._sections['keymap']
+        if 'keymap' in conf:
+            keymap = conf['keymap']
             remote = Remote(cec, keymap)
-        except AttributeError:
+        else:
             remote = Remote(cec, None)
 
-        if conf is not None:
-            for name in [x for x in conf.sections() if x[:4] == 'cmd_']:
-                logging.debug('Creating callback for %s', name)
+        for name in [x for x in conf.sections() if x[:4] == 'cmd_']:
+            logging.debug('Creating callback for %s', name)
 
-                try:
-                    cmd = conf[name]['command']
-                    htime = conf[name]['holdtime']
-                    key = conf[name]['key']
+            try:
+                cmd = conf[name]['command']
+                htime = conf[name]['holdtime']
+                key = conf[name]['key']
 
-                    callback = (CustomCommand(cmd, htime))
-                    remote.add_callback(callback.run_command, int(key))
+                callback = (CustomCommand(cmd, htime))
+                remote.add_callback(callback.run_command, int(key))
 
-                except AttributeError:
-                    logging.warning(
-                        'Callback for %s not created, check format', name)
+            except AttributeError:
+                logging.warning(
+                    'Callback for %s not created, check format', name)
 
     def _setup_logging(self):
         """ Configure logging
