@@ -9,6 +9,7 @@ Currently it is able to translate remote buttons to computer input, run shell co
 
 - [python-cec](https://github.com/trainman419/python-cec/)
 - [python-uinput](https://github.com/tuomasjjrasanen/python-uinput)
+- [pyudev](https://github.com/pyudev/pyudev)
 
 ## Installation:
 Installation should be done as root to allow installing commands to `/usr/bin/`

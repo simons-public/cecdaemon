@@ -23,7 +23,7 @@ setup(name='cecdaemon',
           ],
       keywords='libcec cec daemon htpc',
       packages=['cecdaemon'],
-      install_requires=['cec', 'python-uinput'],
+      install_requires=['cec', 'python-uinput', 'pyudev'],
       data_files=[('/usr/share/cecdaemon', [
           'examples/cecdaemon.conf-example',
           'examples/cecdaemon.service-example',
