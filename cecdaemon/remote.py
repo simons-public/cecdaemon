@@ -41,7 +41,12 @@ class Remote:
         #pylint: disable=W0612
         for key, value in self.keymap.items():
             devicekeys.append(getattr(uinput, value))
-        self.device = uinput.Device(devicekeys)
+
+        # Avoid initializing uinput if the user doesn't need it (it can
+        # require special permissions the user may not even have).
+        if len(devicekeys) > 0:
+            self.device = uinput.Device(devicekeys)
+
         logging.info('Remote initialized')
 
     def eventrouter(self, event, key, state):
