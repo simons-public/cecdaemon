@@ -23,11 +23,14 @@ class CustomCommand():
         :str key: the key pressed
         :int state: the time key was pressed in ms
         """
-        logging.info('running command: %s', self.command)
         try:
             if state >= int(self.holdtime):
+                logging.info('running command: %s', self.command)
                 cmd = Popen(self.command.split(), stdout=PIPE, stderr=STDOUT)
                 output, _ = cmd.communicate()
                 logging.debug(str(output))
+            else:
+                logging.info('not running command: %s, as not enough time has passed (%s >= %s)', self.command, state, int(self.holdtime))
+
         except OSError:
             logging.warning('failed to run custom command for key %s', key)
